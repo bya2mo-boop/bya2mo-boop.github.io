@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redirection…</title>
+</head>
+<body style="background:#0a0b0f;color:#e8e9ed;font-family:system-ui,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">
+<div style="text-align:center">
+<div style="font-size:36px;margin-bottom:14px">📊</div>
+<p style="color:#8b8d98">Redirection vers l'application…</p>
+</div>
+<script>
+  // Capte toute arrivée sur la racine (notamment les redirects d'auth Supabase
+  // qui perdent le chemin /portfolio/) et renvoie vers l'app en préservant
+  // les tokens d'authentification (hash) et les paramètres (query string).
+  (function () {
+    var l = window.location;
+    // Sécurité anti-boucle : ne redirige pas si on est déjà dans /portfolio/
+    if (l.pathname.indexOf('/portfolio') === 0) return;
+    var target = '/portfolio/' + (l.search || '') + (l.hash || '');
+    l.replace(target);
+  })();
+</script>
+</body>
+</html>
